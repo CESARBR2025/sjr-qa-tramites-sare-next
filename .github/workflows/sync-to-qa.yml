@@ -1,27 +1,12 @@
-name: Sync to QA Repo
+- name: Push to QA repo
+  env:
+    QA_TOKEN: ${{ secrets.TEST_QA }}
+  run: |
+    git config --global user.name "github-actions"
+    git config --global user.email "actions@github.com"
 
-on:
-  push:
-    branches:
-      - main
+    git remote add qa https://x-access-token:${QA_TOKEN}@github.com/CESARBR2025/sjr-qa-tramites-sare-next.git
 
-jobs:
-  sync:
-    runs-on: ubuntu-latest
+    git ls-remote https://x-access-token:${QA_TOKEN}@github.com/CESARBR2025/sjr-qa-tramites-sare-next.git
 
-    steps:
-      - name: Checkout ORG repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Push to QA repo
-        env:
-          QA_TOKEN: ${{ secrets.QA_REPO_TOKEN }}
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-
-          git remote add qa https://x-access-token:${QA_TOKEN}@github.com/CESARBR2025/sjr-qa-tramites-sare-next.git
-
-          git push qa main --force
+    git push qa main --force
