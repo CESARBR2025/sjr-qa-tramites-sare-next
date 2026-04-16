@@ -1,6 +1,21 @@
-- name: Debug QA access
-  env:
-    QA_TOKEN: ${{ secrets.TOKEN_QA }}
-  run: |
-    echo "Testing repo access..."
-    git ls-remote https://x-access-token:${QA_TOKEN}@github.com/CESARBR2025/sjr-qa-tramites-sare-next.git
+name: Sync to QA Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Debug QA access
+        env:
+          QA_TOKEN: ${{ secrets.TOKEN_QA }}
+        run: |
+          echo "Testing repo access..."
+          git ls-remote https://x-access-token:${QA_TOKEN}@github.com/CESARBR2025/sjr-qa-tramites-sare-next.git
