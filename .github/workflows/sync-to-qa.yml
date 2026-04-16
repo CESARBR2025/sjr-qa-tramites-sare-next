@@ -1,16 +1,4 @@
-name: Sync to QA Repo
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Debug QA access
+- name: Debug QA access
   env:
     QA_TOKEN: ${{ secrets.TOKEN_QA }}
   run: |
